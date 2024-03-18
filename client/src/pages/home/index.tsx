@@ -5,13 +5,16 @@ import { useEffect, useState } from "react";
 import ModalComponent from "../../components/modal";
 import Todo from "../../components/todo";
 import useFetch from "../../hooks/useFetch";
+import { setTitle, setVisible } from "../../store/reducer/modalSlice";
+import { useAppDispatch, useAppSelector } from "../../store/store";
 import "./home.scss";
 
 const { Search } = Input;
 
 export default function Home() {
-  //   const [data, setData] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useAppDispatch();
+
+ 
 
   const { data, error, isLoading, fetchData } = useFetch("GET");
 
@@ -19,6 +22,10 @@ export default function Home() {
     fetchData("http://localhost:3000/api/todo/getTodos");
   }, []);
 
+  const handleOpen = () => {
+    dispatch(setVisible(true))
+    dispatch(setTitle("Add Todo"))
+  }
   const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
     console.log(info?.source, value);
 
@@ -38,11 +45,11 @@ export default function Home() {
       </div>
       <div className="icon">
         <PlusCircleOutlined
-          onClick={() => setIsModalOpen(true)}
+          onClick={handleOpen}
         />
       </div>
 
-      <ModalComponent setVisible={setIsModalOpen} visible={isModalOpen} />
+      <ModalComponent />
     </div>
   );
 }

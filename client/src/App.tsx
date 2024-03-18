@@ -1,13 +1,16 @@
-import Home from './pages/home'
-import "./app.scss"
+import Home from "./pages/home";
+import "./app.scss";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 function App() {
-
   return (
-    <div className='app'>
-     <Home />
-    </div>
-  )
+    <Provider store={store}>
+      <div className="app">
+        <Home />
+      </div>
+    </Provider>
+  );
 }
 
-export default App
+export default App;
