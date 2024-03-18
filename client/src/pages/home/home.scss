@@ -10,9 +10,8 @@
   border-radius: 10px;
   overflow: scroll;
   .icon {
-    position: sticky;
-    bottom: 0;
+    display: flex;
+    justify-content: center;
     font-size: 30px;
-    padding: 20px;
   }
 }

@@ -1,11 +1,11 @@
-import { PlusCircleOutlined } from "@ant-design/icons";
-import { useEffect, useState } from "react";
-import ModalComponent from "../../components/modal";
-import Todo from "../../components/todo";
+import { useEffect } from "react";
 import useFetch from "../../hooks/useFetch";
 import { setTitle, setVisible } from "../../store/reducer/modalSlice";
 import { setData } from "../../store/reducer/todoSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
+import { PlusCircleOutlined } from "@ant-design/icons";
+import ModalComponent from "../../components/modal";
+import Todo from "../../components/todo";
 import "./home.scss";
 
 export default function Home() {
@@ -34,14 +34,14 @@ export default function Home() {
   }
   return (
     <div className="home">
-      <div>
-        <Todo data={data} />
-      </div>
       <div className="icon">
+        <h3>Add Todo</h3>
         <PlusCircleOutlined
           onClick={handleOpen}
-          style={{ position: "absolute", right: "-25px", bottom: "-25px" }}
         />
+      </div>
+      <div>
+        <Todo data={data} />
       </div>
 
       <ModalComponent />

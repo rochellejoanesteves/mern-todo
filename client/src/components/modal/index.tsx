@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Modal, Input } from "antd";
+import { useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { setVisible } from "../../store/reducer/modalSlice";
+import { Modal, Input } from "antd";
 
 
 export default function ModalComponent() {
@@ -11,7 +11,7 @@ export default function ModalComponent() {
   const { _id, name: activeName} = useAppSelector(state => state.todoSlice.activeTodo)
   const [name, setName] = useState<string>("");
   const [isFocus, setIsFocus] = useState<boolean>(false)
-  const { data, error, isLoading, fetchData } = useFetch("POST");
+  const { fetchData } = useFetch("POST");
 
   const handleOk = async () => {
    await fetchData("http://localhost:3000/api/todo/create", {
