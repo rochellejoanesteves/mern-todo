@@ -12,8 +12,12 @@ interface PropsType {
 export default function ModalComponent() {
   const dispatch = useAppDispatch();
   const { visible, title } = useAppSelector((state) => state.modalSlice);
-  const [name, setName] = useState("");
+  const { _id, name: activeName} = useAppSelector(state => state.todoSlice.activeTodo)
+  const [name, setName] = useState<string>("");
+  const [isFocus, setIsFocus] = useState<boolean>(false)
   const { data, error, isLoading, fetchData } = useFetch("POST");
+
+  console.log(error)
 
   const handleOk = () => {
     fetchData("http://localhost:3000/api/todo/create", {
@@ -21,6 +25,14 @@ export default function ModalComponent() {
     });
     dispatch(setVisible(false));
   };
+
+  const handleUpdate = () => {
+    fetchData(`http://localhost:3000/api/todo/updateTodo/${_id}`, {
+      name
+    })
+    dispatch(setVisible(false));
+  }
+
 
   const handleCancel = () => {
     dispatch(setVisible(false));
@@ -30,13 +42,14 @@ export default function ModalComponent() {
       <Modal
         title={title}
         open={visible}
-        onOk={handleOk}
+        onOk={title === "Update Todo" ? handleUpdate : handleOk}
         onCancel={handleCancel}
         okText="Save"
       >
         <Input
           placeholder="Enter your todo here..."
-          value={name}
+          value={title === "Update Todo" && !isFocus ? activeName : name}
+          onFocus={() => setIsFocus(true)}
           onChange={(e) => setName(e.target.value)}
         />
       </Modal>
