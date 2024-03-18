@@ -1,6 +1,4 @@
 import { PlusCircleOutlined } from "@ant-design/icons";
-import { Input, Space } from "antd";
-import type { SearchProps } from "antd/es/input/Search";
 import { useEffect, useState } from "react";
 import ModalComponent from "../../components/modal";
 import Todo from "../../components/todo";
@@ -10,14 +8,12 @@ import { setData } from "../../store/reducer/todoSlice";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import "./home.scss";
 
-const { Search } = Input;
-
 export default function Home() {
   const dispatch = useAppDispatch();
   const { visible } = useAppSelector((state) => state.modalSlice);
 
   const { data, error, isLoading, fetchData } = useFetch("GET");
-
+  
   useEffect(() => {
     fetchData("http://localhost:3000/api/todo/getTodos");
   }, [visible]);
@@ -32,9 +28,7 @@ export default function Home() {
     dispatch(setVisible(true));
     dispatch(setTitle("Add Todo"));
   };
-  const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
-    console.log(info?.source, value);
-
+   
   if (isLoading) {
     return <h1>Loading ....</h1>;
   }

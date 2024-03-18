@@ -7,6 +7,7 @@ type Methods = "POST" | "GET" | "DELETE" | "PUT";
 
 interface ReturnType {
   data: Duty[];
+  message?: string | null; 
   error: string | null;
   isLoading: boolean;
   fetchData: FetchFunctionTypes;
@@ -18,6 +19,7 @@ export default function useFetch(method: Methods): ReturnType {
     name: ""
   }]);
   const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<string | null>(null); 
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchData: FetchFunctionTypes = async (url: string, body?: unknown) => {
@@ -30,11 +32,11 @@ export default function useFetch(method: Methods): ReturnType {
         },
         body: JSON.stringify(body),
       });
-      const jsonData: Duty[] = await res.json();
-
+      const jsonData: any = await res.json();
+  
       setData(jsonData);
-    } catch (err) {
-      setError(err.message);
+    } catch (err: any) {
+      setError(err);
     } finally {
       setIsLoading(false);
     }

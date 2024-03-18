@@ -1,13 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal, Input } from "antd";
 import useFetch from "../../hooks/useFetch";
 import { useAppDispatch, useAppSelector } from "../../store/store";
 import { setVisible } from "../../store/reducer/modalSlice";
 
-interface PropsType {
-  visible: boolean;
-  setVisible?: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
 export default function ModalComponent() {
   const dispatch = useAppDispatch();
@@ -17,17 +13,15 @@ export default function ModalComponent() {
   const [isFocus, setIsFocus] = useState<boolean>(false)
   const { data, error, isLoading, fetchData } = useFetch("POST");
 
-  console.log(error)
-
-  const handleOk = () => {
-    fetchData("http://localhost:3000/api/todo/create", {
+  const handleOk = async () => {
+   await fetchData("http://localhost:3000/api/todo/create", {
       name,
     });
     dispatch(setVisible(false));
   };
 
-  const handleUpdate = () => {
-    fetchData(`http://localhost:3000/api/todo/updateTodo/${_id}`, {
+  const handleUpdate = async () => {
+    await fetchData(`http://localhost:3000/api/todo/updateTodo/${_id}`, {
       name
     })
     dispatch(setVisible(false));
