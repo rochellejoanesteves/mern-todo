@@ -36,24 +36,18 @@ export default function Home() {
     console.log(info?.source, value);
 
   if (isLoading) {
-    return <h1>Loading ....</h1>
+    return <h1>Loading ....</h1>;
   }
   return (
     <div className="home">
-      <div className="search">
-        <Space direction="vertical">
-          <Search
-            placeholder="input search text"
-            onSearch={onSearch}
-            enterButton
-          />
-        </Space>
-      </div>
       <div>
         <Todo data={data} />
       </div>
       <div className="icon">
-        <PlusCircleOutlined onClick={handleOpen} />
+        <PlusCircleOutlined
+          onClick={handleOpen}
+          style={{ position: "absolute", right: "-25px", bottom: "-25px" }}
+        />
       </div>
 
       <ModalComponent />
